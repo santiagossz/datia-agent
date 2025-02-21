@@ -1,0 +1,10 @@
+{
+    "python": "3.13",
+    "dependencies": [
+        "."
+    ],
+    "graphs": {
+        "datai_agent": "app.api:graph"
+    },
+    "env": "./.env"
+}
