@@ -1,0 +1,91 @@
+{
+  "name": "sales_data",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "67ca7a7f-77be-4f32-863b-9acb36430d95",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -340,
+        100
+      ],
+      "id": "26375d64-4739-48c0-95c2-36ec8c38a8a4",
+      "name": "Webhook",
+      "webhookId": "67ca7a7f-77be-4f32-863b-9acb36430d95"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "sales",
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        -140,
+        100
+      ],
+      "id": "03588984-4630-4c13-aeef-1fe854cce373",
+      "name": "Supabase",
+      "credentials": {
+        "supabaseApi": {
+          "id": "5HsX15NoYX7alL5y",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        60,
+        100
+      ],
+      "id": "42ff6e59-2906-41b4-80a2-916290c1030e",
+      "name": "Respond to Webhook"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Supabase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1702c59e-926d-44c8-9ae8-f8e80db2178e",
+  "meta": {
+    "instanceId": "c4647b733a2372d995664862ee8881db684b510e9ad09153b18e943dcee44237"
+  },
+  "id": "yZS36MCWuittiYfs",
+  "tags": []
+}

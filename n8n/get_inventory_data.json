@@ -1,0 +1,145 @@
+{
+  "name": "inventory_data",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "fa424354-8bc5-40fc-b0da-2156e33f084f",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -400,
+        -60
+      ],
+      "id": "8e9bd363-fbca-46b3-8587-dbff27f3a094",
+      "name": "Webhook",
+      "webhookId": "fa424354-8bc5-40fc-b0da-2156e33f084f"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1Hlic_rMwEZAMWQ4YSZgvoOcBQi9dKhF2HzBif7vcr7E",
+          "mode": "list",
+          "cachedResultName": "inventory",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Hlic_rMwEZAMWQ4YSZgvoOcBQi9dKhF2HzBif7vcr7E/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 256326229,
+          "mode": "list",
+          "cachedResultName": "inventory",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Hlic_rMwEZAMWQ4YSZgvoOcBQi9dKhF2HzBif7vcr7E/edit#gid=256326229"
+        },
+        "options": {
+          "outputFormatting": {
+            "values": {
+              "general": "UNFORMATTED_VALUE",
+              "date": "FORMATTED_STRING"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -180,
+        -60
+      ],
+      "id": "811a9367-f804-47f7-98f2-5660b57f8b02",
+      "name": "Google Sheets",
+      "alwaysOutputData": false,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "6R5S5PravRy6EQIy",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        240,
+        -60
+      ],
+      "id": "b1a88381-ffc2-4697-a547-418478b1dc2a",
+      "name": "Respond to Webhook",
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "includeOtherFields": true,
+        "include": "except",
+        "excludeFields": "row_number",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        20,
+        -60
+      ],
+      "id": "3f716980-fed4-47ce-a5c9-2559b68a2d68",
+      "name": "remove row_number"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "remove row_number",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook": {
+      "main": [
+        []
+      ]
+    },
+    "remove row_number": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "470edc95-9fe2-4bdd-86e7-7b8725a3e951",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "c4647b733a2372d995664862ee8881db684b510e9ad09153b18e943dcee44237"
+  },
+  "id": "SwlfJZ49LvcRnmJR",
+  "tags": []
+}
